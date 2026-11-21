@@ -182,6 +182,9 @@ public class StudentService {
 
         Page<StudentListItemResponse> mapped = studentPage.map(student -> {
             StudentAnamnesis anamnesis = latestByStudent.get(student.getId());
+            List<String> alerts = anamnesis == null
+                    ? List.of()
+                    : HealthAlertExtractor.extractAlerts(anamnesis.getMedicalHistory());
             return new StudentListItemResponse(
                     student.getId(),
                     student.getFullName(),
@@ -195,8 +198,9 @@ public class StudentService {
                             : anamnesis.getIntendedWeeklyFrequency().intValue(),
                     anamnesis != null && anamnesis.isHasHealthAlerts(),
                     anamnesis == null || anamnesis.getHealthAlertsCount() == null
-                            ? 0
+                            ? alerts.size()
                             : anamnesis.getHealthAlertsCount().intValue(),
+                    alerts,
                     student.getStatus(),
                     student.getCreatedAt()
             );
