@@ -1,0 +1,12 @@
+package com.mkstudio.student;
+
+public enum PrimaryGoal {
+    MUSCLE_HYPERTROPHY,
+    WEIGHT_LOSS,
+    MUSCLE_DEFINITION,
+    PHYSICAL_CONDITIONING,
+    STRENGTH_GAIN,
+    HEALTH_AND_QUALITY_OF_LIFE,
+    REHABILITATION_STRENGTHENING,
+    OTHER
+}

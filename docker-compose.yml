@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: mk-studio-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: mk_studio
+      POSTGRES_USER: mk_studio
+      POSTGRES_PASSWORD: mk_studio_dev_password
+    volumes:
+      - mk_studio_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U mk_studio -d mk_studio"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  mk_studio_pgdata:
